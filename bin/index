@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+const { program } = require("commander");
+const PK = require("../package.json");
+
+program.name("epmgit").description("some branch push").version(PK.version);
+
+program.parse();

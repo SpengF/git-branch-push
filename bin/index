@@ -6,7 +6,9 @@ program.name("epmgit").description("some branch push").version(PK.version);
 
 program
   .command("add <name> <branch>")
-  .description("add branch")
+  .description(
+    "add branch,use ',' split。such as: epmgit add useBranchs develop,release"
+  )
   .action(action.onAdd);
 
 program.command("del <name> ").description("del branch").action(action.onDel);

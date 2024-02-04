@@ -1,6 +1,6 @@
 {
   "name": "epmgit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "git push branchs",
   "main": "index.js",
   "scripts": {

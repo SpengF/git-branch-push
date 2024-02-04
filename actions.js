@@ -1,6 +1,7 @@
 const {
   readFile,
   writeFile,
+  gitPushCommit,
   printSuccess,
   printMessage,
   pushAnswer,
@@ -41,6 +42,10 @@ async function onList(names, branch) {
   printMessage(file.data);
 }
 
+async function onCherryPick(hash) {
+  gitPushCommit(hash);
+}
+
 async function onPush() {
   // 问询
   const answer = await pushAnswer();
@@ -56,5 +61,6 @@ module.exports = {
   onUse,
   onUpdate,
   onList,
+  onCherryPick,
   onPush,
 };

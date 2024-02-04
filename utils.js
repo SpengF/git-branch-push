@@ -171,5 +171,6 @@ module.exports = {
   printMessage,
   printSuccess,
   pushAnswer,
+  gitPushCommit,
   gitPush,
 };

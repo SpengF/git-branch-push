@@ -21,6 +21,11 @@ program
 program.command("ls").description("show all branch list").action(action.onList);
 
 program
+  .command("cherry-pick <hash>")
+  .description("cherry-pick commit")
+  .action(action.onCherryPick);
+
+program
   .command("push")
   .description("push Code to branchs")
   .action(action.onPush);

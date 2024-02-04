@@ -1,7 +1,28 @@
 #!/usr/bin/env node
 const { program } = require("commander");
 const PK = require("../package.json");
-
+const action = require("../actions");
 program.name("epmgit").description("some branch push").version(PK.version);
+
+program
+  .command("add <name> <branch>")
+  .description("add branch")
+  .action(action.onAdd);
+
+program.command("del <name> ").description("del branch").action(action.onDel);
+
+program.command("use <name> ").description("del branch").action(action.onUse);
+
+program
+  .command("update <name> <newBranch>")
+  .description("update branch")
+  .action(action.onUpdate);
+
+program.command("ls").description("show all branch list").action(action.onList);
+
+program
+  .command("push")
+  .description("push Code to branchs")
+  .action(action.onPush);
 
 program.parse();

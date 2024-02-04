@@ -1,1 +1,4 @@
-{"data":{"develop-daily":["develop","daily","main"]},"current":"develop-daily"}
+{
+  "data": { "develop-daily": ["develop", "daily"] },
+  "current": "develop-daily"
+}

@@ -11,7 +11,7 @@ program
 
 program.command("del <name> ").description("del branch").action(action.onDel);
 
-program.command("use <name> ").description("del branch").action(action.onUse);
+program.command("use <name> ").description("use branch").action(action.onUse);
 
 program
   .command("update <name> <newBranch>")

@@ -7,6 +7,7 @@ const {
   Del,
   Use,
   AnswerKey,
+  CherryPick,
   DefaultSure,
 } = require("./constants");
 const inquirer = require("inquirer");
@@ -102,13 +103,16 @@ function printError(error) {
   console.error(chalk.bgRed("ERROR") + " " + chalk.red(error));
 }
 
-function pushAnswer() {
+function pushAnswer(type) {
   const currentBranch = DATAJSON.data[DATAJSON.current];
+
+  const concatStr =
+    type == CherryPick ? "" : `and ${chalk.green(currentBranch)}`;
   let answer = inquirer.prompt({
     name: AnswerKey,
-    message: `Sure to push  ${chalk.green(
+    message: `Sure ${type} to ${chalk.bgYellowBright(
       currentBranch
-    )} ( ${DefaultSure} / n)`,
+    )} ${concatStr} ( ${DefaultSure} / n)`,
     default: DefaultSure,
   });
   return answer;
@@ -153,16 +157,35 @@ async function gitPushCommit(commit) {
     (item) => item !== currentBranch
   );
 
+  let flagNum = 0;
+
   for (let index = 0; index < filterCurrentBranchs.length; index++) {
     const branch = filterCurrentBranchs[index];
     await execPromise(`git checkout ${branch}`);
     await execPromise(`git pull`);
-    await execPromise(`git cherry-pick ${commit}`);
+    try {
+      await execPromise(`git cherry-pick ${commit}`);
+    } catch (error) {
+      if (~error.stdout.indexOf("nothing to commit")) {
+        console.log(`branch ${branch} has already pushed`);
+        flagNum = flagNum + 1;
+        // 如果已经cherry-pick过,跳过此分支的提交等操作
+        continue;
+      }
+      printError(`branch ${branch} error`);
+      return;
+    }
     const res = await execPromise(`git push`);
-    if (res.stdout) {
+    if (res.stdout || res.stderr) {
+      flagNum = flagNum + 1;
       console.log("git push " + chalk.green(branch) + " success");
     }
   }
+  if ((flagNum = filterCurrentBranchs.length)) {
+    printSuccess("--------All branch pushed--------");
+  }
+  // back to currentBranch
+  await execPromise(`git checkout ${currentBranch}`);
 }
 
 module.exports = {

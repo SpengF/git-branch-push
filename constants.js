@@ -4,6 +4,8 @@ const Del = "Del";
 const Use = "Use";
 const FilePath = "/data.json";
 const AnswerKey = "AnswerKey";
+const Push = "push";
+const CherryPick = "cherr-pick";
 const DefaultSure = "y";
 module.exports = {
   Add,
@@ -12,5 +14,7 @@ module.exports = {
   Use,
   FilePath,
   AnswerKey,
+  CherryPick,
+  Push,
   DefaultSure,
 };

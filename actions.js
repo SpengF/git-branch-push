@@ -14,6 +14,8 @@ const {
   Use,
   FilePath,
   AnswerKey,
+  CherryPick,
+  Push,
   DefaultSure,
 } = require("./constants");
 
@@ -43,12 +45,17 @@ async function onList(names, branch) {
 }
 
 async function onCherryPick(hash) {
-  gitPushCommit(hash);
+  // 问询
+  const answer = await pushAnswer(CherryPick);
+  if (answer[AnswerKey] == DefaultSure) {
+    // 执行cherry-pick 操作
+    gitPushCommit(hash);
+  }
 }
 
 async function onPush() {
   // 问询
-  const answer = await pushAnswer();
+  const answer = await pushAnswer(Push);
   if (answer[AnswerKey] == DefaultSure) {
     // 执行git 操作
     gitPush();

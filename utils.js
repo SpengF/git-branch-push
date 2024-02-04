@@ -20,7 +20,7 @@ function handleFile(data) {
 
 async function readFile(url) {
   return new Promise((resolve, reject) => {
-    fs.readFile(url, "utf8", (error, data) => {
+    fs.readFile(__dirname + url, "utf8", (error, data) => {
       if (error) reject(error);
       resolve(handleFile(data));
     });
@@ -123,7 +123,7 @@ async function getCurrentPushCommit() {
   let commit = "";
 
   try {
-    const commands = ["git pull", "git rev-parse HEAD"];
+    const commands = ["git pull", "git push", "git rev-parse HEAD"];
     for (let index = 0; index < commands.length; index++) {
       const res = await execPromise(commands[index]);
       if (~commands[index].indexOf("HEAD")) {

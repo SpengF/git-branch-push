@@ -52,7 +52,7 @@ async function writeFile(names, content, url, type) {
         return;
       }
       copyDataJson.data[names] = content.split(",");
-      fs.writeFileSync(url, JSON.stringify(copyDataJson));
+      fs.writeFileSync(__dirname + url, JSON.stringify(copyDataJson));
       resoleve();
     }
     if (type == Update) {
@@ -61,7 +61,7 @@ async function writeFile(names, content, url, type) {
         return;
       }
       copyDataJson.data[names] = content.split(",");
-      fs.writeFileSync(url, JSON.stringify(copyDataJson));
+      fs.writeFileSync(__dirname + url, JSON.stringify(copyDataJson));
       resoleve();
     }
     if (type == Use) {
@@ -70,7 +70,7 @@ async function writeFile(names, content, url, type) {
         return;
       }
       copyDataJson.current = names;
-      fs.writeFileSync(url, JSON.stringify(copyDataJson));
+      fs.writeFileSync(__dirname + url, JSON.stringify(copyDataJson));
       resoleve();
     }
     if (type == Del) {
@@ -83,7 +83,7 @@ async function writeFile(names, content, url, type) {
         return;
       }
       delete copyDataJson.data[names];
-      fs.writeFileSync(url, JSON.stringify(copyDataJson));
+      fs.writeFileSync(__dirname + url, JSON.stringify(copyDataJson));
       resoleve();
     }
   });
